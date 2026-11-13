@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, X, Send, Bot, User, MessageCircle, Phone, Calendar, MapPin } from 'lucide-react';
+import { X, Send, Bot, User, Sparkles, MessageCircle, Calendar, Phone, CheckCircle2 } from 'lucide-react';
 import { STORE_INFO, CATALOG_PRODUCTS } from '../data/jewelleryData';
 
 interface AIChatbotModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpenAppointment: (item?: string) => void;
+  onOpenAppointment: (itemName?: string) => void;
 }
 
 interface ChatMessage {
@@ -25,13 +25,13 @@ export const AIChatbotModal: React.FC<AIChatbotModalProps> = ({
     {
       id: '1',
       sender: 'ai',
-      text: 'Marhaba & Welcome to Sunmoon Jewelleryj Concierge. I am your personal boutique assistant for our Souq Al Watiya showroom in Kuwait City. How may I assist your fine jewellery discovery today?',
+      text: 'Bonjour & Welcome to Intemporel Genève Concierge. I am your personal horological assistant for our Geneva salon on Route des Jeunes 4bis. How may I assist your fine timepiece discovery today?',
       suggestedActions: [
-        { label: '💰 Pricing & Daily Gold Rates in KWD', action: () => handleSendPrompt('What are your prices in KWD and daily gold rates?') },
-        { label: '📅 Reserve Private Viewing Slot', action: () => onOpenAppointment() },
-        { label: '💍 Bespoke Custom Designs & Rings', action: () => handleSendPrompt('Can I create a bespoke custom jewellery design?') },
-        { label: '✨ 18K & 21K Official Kuwait Hallmarks', action: () => handleSendPrompt('Tell me about your 18K and 21K gold purity and hallmarks.') },
-        { label: '📍 Souq Al Watiya Boutique Hours & Directions', action: () => handleSendPrompt('Where is your boutique located in Souq Al Watiya?') },
+        { label: '💰 Pricing & Reference Valuations in USD', action: () => handleSendPrompt('What are your prices in USD and reference valuations?') },
+        { label: '📅 Reserve Private Salon Viewing Slot', action: () => onOpenAppointment() },
+        { label: '⌚ Complications & Certified Calibres', action: () => handleSendPrompt('Tell me about your complications and certified calibres.') },
+        { label: '🇨🇭 Swiss Made Authenticity & Papers', action: () => handleSendPrompt('Tell me about your authenticity guarantee and box/papers.') },
+        { label: '📍 Geneva Salon Hours & Address', action: () => handleSendPrompt('Where is your salon located in Geneva?') },
       ],
     },
   ]);
@@ -65,26 +65,23 @@ export const AIChatbotModal: React.FC<AIChatbotModalProps> = ({
 
       const lower = text.toLowerCase().trim();
 
-      // 1. Simple, friendly greetings
       const isGreeting =
-        /^(hi|hello|hey|marhaba|salam|salaam|good morning|good afternoon|good evening|howdy|holla)(\b|\s|!|\.)/i.test(lower) ||
+        /^(hi|hello|hey|bonjour|salut|good morning|good afternoon|good evening)(\b|\s|!|\.)/i.test(lower) ||
         lower === 'hi' ||
         lower === 'hello' ||
         lower === 'hey' ||
-        lower === 'marhaba';
+        lower === 'bonjour';
 
       if (isGreeting && !lower.includes('appointment') && !lower.includes('order') && !lower.includes('price')) {
         replyText =
-          'Hello and Marhaba! Welcome to Sunmoon Jewelleryj in Souq Al Watiya, Kuwait City. How may I assist you today? Feel free to ask about our 18K/21K gold jewellery, booking an in-person viewing, placing an order, or custom bespoke designs.';
+          'Bonjour! Welcome to Intemporel Genève. How may I assist you today? Feel free to ask about our verified Swiss luxury timepieces, booking a private viewing in our Geneva salon, or acquiring rare references.';
         dynamicActions = [
-          { label: '📅 How to Book Appointment', action: () => handleSendPrompt('How to do appointment?') },
-          { label: '🛍️ How to Place an Order', action: () => handleSendPrompt('How to do order?') },
-          { label: '✨ 18K & 21K Gold Purity', action: () => handleSendPrompt('Tell me about 18K and 21K gold') },
-          { label: '📍 Store Location & Hours', action: () => handleSendPrompt('Where is your store located?') },
+          { label: '📅 How to Book Salon Viewing', action: () => handleSendPrompt('How to book an appointment?') },
+          { label: '🛍️ How to Acquire a Timepiece', action: () => handleSendPrompt('How to acquire a watch?') },
+          { label: '⌚ Swiss Calibre Authenticity', action: () => handleSendPrompt('Tell me about your watch authenticity') },
+          { label: '📍 Salon Address & Hours', action: () => handleSendPrompt('Where is your salon located?') },
         ];
-      }
-      // 2. Exact appointment booking steps
-      else if (
+      } else if (
         lower.includes('appointment') ||
         lower.includes('book') ||
         lower.includes('booking') ||
@@ -93,274 +90,168 @@ export const AIChatbotModal: React.FC<AIChatbotModalProps> = ({
         lower.includes('schedule')
       ) {
         replyText =
-          'Here are the exact steps to book a private viewing appointment with us:\n\n' +
-          '1. Click the "Book Viewing" or "Reserve Appointment" button on the website.\n' +
-          '2. Select your preferred date and time slot.\n' +
-          '3. Choose your consultation interest (Bridal Suites, 18K/21K Gold, Diamond Rings, or Bespoke Custom Design).\n' +
-          '4. Enter your name and phone number, then click "Confirm Appointment".\n\n' +
-          'Our boutique team at Shop 116, Souq Al Watiya will reserve your private slot and welcome you warmly. You can also WhatsApp us at +965 9748 2257 for immediate booking.';
+          'Here are the steps to reserve a private viewing appointment with us:\n\n' +
+          '1. Click the "Book Viewing" or "Reserve Appointment" button.\n' +
+          '2. Select your preferred date and convenient time slot.\n' +
+          '3. Specify your area of interest (Patek Philippe, Rolex, Audemars Piguet, Complications, or Chronographs).\n' +
+          '4. Enter your contact details to confirm.\n\n' +
+          'Our horological concierge on Route des Jeunes 4bis, Les Acacias will prepare the pieces for your private inspection. You can also WhatsApp us at +41 79 966 01 56 for instant confirmation.';
         dynamicActions = [
-          { label: '📅 Open Appointment Booking Form', action: () => onOpenAppointment() },
-          { label: '💬 WhatsApp Booking (+965 9748 2257)', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
+          { label: '📅 Open Appointment Form', action: () => onOpenAppointment() },
+          { label: '💬 WhatsApp Booking (+41 79 966 01 56)', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
         ];
-      }
-      // 3. Exact order placement steps
-      else if (
+      } else if (
         lower.includes('order') ||
         lower.includes('buy') ||
         lower.includes('purchase') ||
-        lower.includes('how to order') ||
-        lower.includes('how to buy') ||
-        lower.includes('how to do order')
+        lower.includes('acquire') ||
+        lower.includes('how to order')
       ) {
         replyText =
-          'Here are the exact steps to place an order with Sunmoon Jewelleryj:\n\n' +
-          '1. Browse our Featured Jewellery catalog and Collections online.\n' +
-          '2. Click on any piece to view details, specifications, and pricing in KWD.\n' +
-          '3. Save items to your Wishlist or click "Order via WhatsApp".\n' +
-          '4. Send your selected item details or reference photo to our concierge on WhatsApp (+965 9748 2257).\n' +
-          '5. Choose your delivery preference: Secure insured home delivery across all Kuwait areas (24–48 hours) or showroom pickup at Souq Al Watiya.';
+          'Here is how you can acquire a timepiece from Intemporel Genève:\n\n' +
+          '1. Browse our curated collection and select your preferred reference.\n' +
+          '2. Inspect specifications, case dimensions, calibre details, and USD pricing.\n' +
+          '3. Connect directly with our concierge via WhatsApp (+41 79 966 01 56) or book a private salon viewing.\n' +
+          '4. Choose between confidential salon collection in Geneva or insured international courier delivery with full tracking and certification.';
         dynamicActions = [
-          { label: '💬 Order on WhatsApp (+965 9748 2257)', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-          { label: '📅 Book In-Store Fitting', action: () => onOpenAppointment() },
+          { label: '💬 Inquire on WhatsApp (+41 79 966 01 56)', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
+          { label: '📅 Reserve Salon Viewing', action: () => onOpenAppointment() },
         ];
-      }
-      // 4. Gold purity, 18K vs 21K, and Ministry hallmarks
-      else if (
-        lower.includes('18k') ||
-        lower.includes('21k') ||
-        lower.includes('gold') ||
-        lower.includes('purity') ||
-        lower.includes('hallmark') ||
-        lower.includes('karat') ||
-        lower.includes('carat')
+      } else if (
+        lower.includes('authenticity') ||
+        lower.includes('original') ||
+        lower.includes('genuine') ||
+        lower.includes('papers') ||
+        lower.includes('box') ||
+        lower.includes('movement')
       ) {
         replyText =
-          'All gold jewellery at Sunmoon Jewelleryj is 100% genuine and officially stamped with the Kuwait Ministry of Commerce hallmark:\n\n' +
-          '• 21K Gold (87.5% Purity): Rich, traditional yellow gold hue with high gold content, ideal for Kuwaiti bridal sets and traditional bangles.\n' +
-          '• 18K Gold (75.0% Purity): Available in Yellow, White, and Rose Gold. Exceptionally durable for daily elegance, solitaire diamond rings, and modern geometric chains.\n\n' +
-          'All purchases include official authenticity certification and guaranteed buy-back / exchange value.';
-        dynamicActions = [
-          { label: '💰 Check Pricing in KWD', action: () => handleSendPrompt('What are your prices in KWD?') },
-          { label: '📅 Book Showroom Viewing', action: () => onOpenAppointment() },
-        ];
-      }
-      // 5. Store Location, Directions, and Working Hours
-      else if (
-        lower.includes('location') ||
-        lower.includes('address') ||
-        lower.includes('where') ||
-        lower.includes('hours') ||
-        lower.includes('timing') ||
-        lower.includes('time') ||
-        lower.includes('open') ||
-        lower.includes('closed') ||
-        lower.includes('maliya') ||
-        lower.includes('watiya') ||
-        lower.includes('parking')
-      ) {
+          'At Intemporel Genève, every timepiece is 100% verified and guaranteed authentic:\n\n' +
+          '• Inspected by master watchmakers for calibre timing, amplitude, and water resistance.\n' +
+          '• Accompanied by original manufacturer certificates, warranty papers, and presentation boxes where noted.\n' +
+          '• Lifetime guarantee of authenticity with documented provenance from reputable European collectors and manufactures.';
+      } else if (lower.includes('location') || lower.includes('where') || lower.includes('address') || lower.includes('hours') || lower.includes('directions')) {
         replyText =
-          `📍 Showroom Address:\n` +
-          `Ground Floor, Shop 116, Souq Al Watiya, Maliya, Kuwait City, Kuwait.\n\n` +
-          `🕒 Boutique Hours:\n` +
-          `• Saturday – Thursday: 9:30 AM – 1:30 PM & 4:30 PM – 10:00 PM\n` +
-          `• Friday: 4:30 PM – 10:00 PM\n\n` +
-          `📞 Phone: +965 9748 2257 / +965 2244 8812\n` +
-          `🅿️ Ample street and public parking is available adjacent to the Souq Al Watiya shopping complex.`;
-        dynamicActions = [
-          { label: '📍 Get Google Maps Directions', action: () => window.open(STORE_INFO.googleMapsUrl, '_blank') },
-          { label: '📞 Call Boutique Now', action: () => window.open(`tel:${STORE_INFO.phone}`, '_self') },
-        ];
-      }
-      // 6. Custom Bespoke Design Services
-      else if (
-        lower.includes('custom') ||
-        lower.includes('bespoke') ||
-        lower.includes('design') ||
-        lower.includes('customize') ||
-        lower.includes('remount') ||
-        lower.includes('sketch')
-      ) {
+          `Our private flagship salon is located at:\n\n` +
+          `📍 Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse.\n\n` +
+          `🕒 Salon Hours:\n` +
+          `• Monday – Friday: 10:00 AM – 7:00 PM\n` +
+          `• Saturday: 10:00 AM – 6:00 PM\n` +
+          `• Sunday: By Private Appointment\n\n` +
+          `📞 Direct Phone: +41 79 966 01 56\n` +
+          `📧 Email: contact@intemporel-geneve.ch\n` +
+          `🅿️ Private client parking available at the building.`;
+      } else if (lower.includes('price') || lower.includes('cost') || lower.includes('usd') || lower.includes('rate') || lower.includes('dollar')) {
         replyText =
-          'Our in-house master goldsmiths offer full bespoke custom jewellery creation in Maliya:\n\n' +
-          '1. Send us your concept, sketch, or photo via WhatsApp.\n' +
-          '2. Receive 3D design renders and transparent price estimates based on gold weight and gemstone selection.\n' +
-          '3. Handcrafted in Kuwait in 18K or 21K gold and stamped with official Ministry hallmarks within 7–10 days.';
-        dynamicActions = [
-          { label: '💬 Send Custom Sketch on WhatsApp', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-          { label: '📅 Consult in Person', action: () => onOpenAppointment('Bespoke Custom Design') },
-        ];
-      }
-      // 7. Pricing, Rates & KWD
-      else if (
-        lower.includes('price') ||
-        lower.includes('rate') ||
-        lower.includes('cost') ||
-        lower.includes('kwd') ||
-        lower.includes('dinar') ||
-        lower.includes('how much')
-      ) {
+          'All our prices are displayed transparently in US Dollars ($), spanning from luxury daily references ($3,000–$8,000) to grand complications and tourbillons ($15,000–$25,000+). For confidential quotes, wire instructions, or trade-in valuations, contact our Geneva concierge on WhatsApp (+41 79 966 01 56).';
+      } else {
         replyText =
-          'Our fine jewellery collection starts from approximately KWD 175 for daily gold pieces and up to KWD 3,500+ for magnificent bridal heirloom suites.\n\n' +
-          'Prices reflect gold weight, 18K/21K purity, gemstone grades, and daily Kuwait gold market rates. For an exact quote on any piece or custom design, contact our sales concierge on WhatsApp (+965 9748 2257).';
-        dynamicActions = [
-          { label: '💬 Get Live Quote on WhatsApp', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-          { label: '📅 Book Private Viewing', action: () => onOpenAppointment() },
-        ];
-      }
-      // 8. Delivery & Shipping
-      else if (
-        lower.includes('delivery') ||
-        lower.includes('shipping') ||
-        lower.includes('deliver') ||
-        lower.includes('ship')
-      ) {
-        replyText =
-          'We provide discreet, fully insured door-to-door delivery across all Kuwait Governorates within 24–48 hours:\n\n' +
-          '• Kuwait City & Capital Area\n' +
-          '• Hawalli, Salmiya, & Jabriya\n' +
-          '• Farwaniya, Ahmadi, & Jahra\n\n' +
-          'Same-day express delivery and showroom pickup at Souq Al Watiya are also available.';
-        dynamicActions = [
-          { label: '💬 Inquire About Delivery', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-        ];
-      }
-      // 9. Specific Jewelry Categories (Rings, Necklaces, Bangles, Pearls, Bridal)
-      else if (lower.includes('ring') || lower.includes('solitaire') || lower.includes('engagement') || lower.includes('diamond')) {
-        replyText =
-          'Our ring collection features certified 18K Yellow, White, and Rose Gold solitaires, halo diamond designs, and traditional 21K signet bands. In-person precision ring sizing is complimentary at our Souq Al Watiya showroom.';
-        dynamicActions = [
-          { label: '📅 Book Ring Sizing & Viewing', action: () => onOpenAppointment('Ring Fitting') },
-          { label: '💬 Browse Rings on WhatsApp', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-        ];
-      } else if (lower.includes('necklace') || lower.includes('chain') || lower.includes('pendant') || lower.includes('choker')) {
-        replyText =
-          'We offer handcrafted 18K & 21K gold necklaces, multi-strand layered chains, gemstone pendants, and regal bridal chokers crafted to complement both modern and traditional Kuwaiti attire.';
-      } else if (lower.includes('bangle') || lower.includes('bracelet') || lower.includes('cuff')) {
-        replyText =
-          'Discover our collection of traditional Kuwaiti 21K engraved gold bangles, 18K modern cuffs, and classic diamond tennis bracelets with secure luxury clasps.';
-      } else if (lower.includes('pearl') || lower.includes('pearls') || lower.includes('lulwa')) {
-        replyText =
-          'Sunmoon Jewelleryj celebrates the Arabian Gulf heritage with natural and fine cultured pearls, featuring luminous necklaces, matching drop earrings, and pearl-encrusted gold suites.';
-      } else if (lower.includes('bridal') || lower.includes('wedding') || lower.includes('suite') || lower.includes('set')) {
-        replyText =
-          'Our Bridal Suites include complete coordinated sets (Necklace, Earrings, Bangles/Bracelet, and Ring) in 21K traditional gold or 18K diamond settings. Private bridal suite viewings are available by appointment.';
-        dynamicActions = [
-          { label: '📅 Reserve Bridal Viewing Slot', action: () => onOpenAppointment('Bridal Suite') },
-          { label: '💬 Chat with Bridal Stylist', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-        ];
-      }
-      // 10. General / Fallback with smart context
-      else {
-        replyText =
-          `Thank you for reaching out! Sunmoon Jewelleryj is a premier fine jewellery house located at Shop 116, Souq Al Watiya in Kuwait City, specializing in 18K/21K certified gold, bridal suites, and bespoke design.\n\n` +
-          `Would you like to book a private viewing, ask about how to order, or speak directly with our concierge?`;
-        dynamicActions = [
-          { label: '📅 Book Private Appointment', action: () => onOpenAppointment() },
-          { label: '🛍️ How to Place an Order', action: () => handleSendPrompt('How to do order?') },
-          { label: '💬 WhatsApp Concierge', action: () => window.open(STORE_INFO.whatsappUrl, '_blank') },
-        ];
+          `Thank you for reaching out! Intemporel Genève is a premier luxury watch salon located on Route des Jeunes 4bis in Les Acacias, Genève, Suisse.\n\n` +
+          `We specialize in certified Swiss master calibres, complications, chronographs, and haute joaillerie timepieces.\n\n` +
+          `You can reach our concierge directly at +41 79 966 01 56 or reserve a private appointment.`;
       }
 
-      const aiReply: ChatMessage = {
+      const botMsg: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
         text: replyText,
         suggestedActions: dynamicActions,
       };
 
-      setMessages((prev) => [...prev, aiReply]);
+      setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
-    }, 700);
+    }, 600);
   };
 
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex items-end justify-end pointer-events-none">
-        {/* Backdrop on mobile */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-hidden">
+        {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-[#463A34]/40 backdrop-blur-xs sm:hidden pointer-events-auto"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm"
         />
 
         {/* Chat Window */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.9, y: 20 }}
-          className="relative w-[92vw] sm:w-[420px] bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/50 z-10 flex flex-col h-[560px] max-h-[85vh] pointer-events-auto"
+          exit={{ opacity: 0, scale: 0.95, y: 20 }}
+          className="relative w-full max-w-xl h-[92vh] sm:h-[620px] bg-[#FBF8F1] rounded-3xl border border-[#C9A45C]/50 shadow-2xl flex flex-col overflow-hidden z-10"
         >
           {/* Header */}
-          <div className="p-4 sm:p-5 bg-[#145C5A] text-white flex items-center justify-between border-b border-[#C9A45C]/40">
+          <div className="p-4 sm:p-5 bg-[#145C5A] text-white flex items-center justify-between border-b border-[#C9A45C]/40 shrink-0">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/10 border border-[#C9A45C] flex items-center justify-center text-[#C9A45C] shadow-xs">
-                <Sparkles className="w-5 h-5" />
+              <div className="w-10 h-10 rounded-full bg-white/15 border border-[#C9A45C] flex items-center justify-center text-[#E4CCA1] shadow-xs">
+                <Bot className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-serif-cormorant text-xl font-bold text-white">
-                  Sunmoon AI Concierge
-                </h3>
-                <p className="text-[11px] text-[#E4CCA1]">
-                  Souq Al Watiya, Kuwait City • Online
+                <div className="flex items-center gap-2">
+                  <h3 className="font-serif-cormorant text-lg sm:text-xl font-bold leading-none">
+                    Intemporel Concierge
+                  </h3>
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                </div>
+                <p className="text-[11px] text-[#E4CCA1] mt-0.5 font-medium">
+                  Les Acacias, Genève • Online
                 </p>
               </div>
             </div>
 
             <button
+              id="close-ai-chat-btn"
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors border border-white/20 cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Chat Messages */}
-          <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4 bg-[#FBF8F1]/50">
-            {messages.map((m) => (
+          {/* Messages Body */}
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 font-body">
+            {messages.map((msg) => (
               <div
-                key={m.id}
-                className={`flex gap-2.5 ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                key={msg.id}
+                className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
-                {m.sender === 'ai' && (
-                  <div className="w-7 h-7 rounded-full bg-[#145C5A] text-[#C9A45C] flex items-center justify-center shrink-0 mt-1">
-                    <Bot className="w-4 h-4" />
+                {msg.sender === 'ai' && (
+                  <div className="w-8 h-8 rounded-full bg-[#145C5A] text-[#C9A45C] flex items-center justify-center shrink-0 shadow-xs border border-[#C9A45C]/40 mt-1">
+                    <Sparkles className="w-4 h-4" />
                   </div>
                 )}
 
-                <div className={`max-w-[80%] space-y-2`}>
-                  <div
-                    className={`p-3.5 rounded-2xl text-xs sm:text-sm font-body leading-relaxed ${
-                      m.sender === 'user'
-                        ? 'bg-[#145C5A] text-white rounded-tr-xs shadow-xs'
-                        : 'bg-white text-[#463A34] border border-[#E9DDCB] rounded-tl-xs shadow-xs'
-                    }`}
-                  >
-                    {m.text}
-                  </div>
+                <div
+                  className={`max-w-[85%] sm:max-w-[78%] rounded-2xl p-3.5 sm:p-4 text-xs sm:text-sm leading-relaxed shadow-xs whitespace-pre-line ${
+                    msg.sender === 'user'
+                      ? 'bg-[#145C5A] text-white rounded-tr-xs'
+                      : 'bg-white text-[#463A34] border border-[#E9DDCB] rounded-tl-xs'
+                  }`}
+                >
+                  <p>{msg.text}</p>
 
-                  {/* Suggested action chips */}
-                  {m.suggestedActions && m.suggestedActions.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {m.suggestedActions.map((act, idx) => (
+                  {/* Suggested Dynamic Actions */}
+                  {msg.suggestedActions && msg.suggestedActions.length > 0 && (
+                    <div className="mt-3 pt-3 border-t border-[#E9DDCB]/60 flex flex-wrap gap-2">
+                      {msg.suggestedActions.map((action, i) => (
                         <button
-                          key={idx}
-                          onClick={act.action}
-                          className="px-2.5 py-1 rounded-full bg-white hover:bg-[#145C5A] text-[#145C5A] hover:text-white border border-[#C9A45C]/50 text-[11px] font-semibold transition-all shadow-2xs text-left"
+                          key={i}
+                          onClick={action.action}
+                          className="px-3 py-1.5 rounded-full bg-[#FBF8F1] hover:bg-[#145C5A] hover:text-white border border-[#C9A45C]/50 text-[11px] font-semibold text-[#145C5A] transition-all text-left shadow-2xs cursor-pointer"
                         >
-                          {act.label}
+                          {action.label}
                         </button>
                       ))}
                     </div>
                   )}
                 </div>
 
-                {m.sender === 'user' && (
-                  <div className="w-7 h-7 rounded-full bg-[#C9A45C] text-[#463A34] flex items-center justify-center shrink-0 mt-1">
+                {msg.sender === 'user' && (
+                  <div className="w-8 h-8 rounded-full bg-[#C9A45C] text-[#463A34] flex items-center justify-center shrink-0 shadow-xs mt-1">
                     <User className="w-4 h-4" />
                   </div>
                 )}
@@ -368,18 +259,24 @@ export const AIChatbotModal: React.FC<AIChatbotModalProps> = ({
             ))}
 
             {isTyping && (
-              <div className="flex gap-2 items-center text-xs text-[#75665D] pl-9">
-                <span className="inline-block w-2 h-2 rounded-full bg-[#145C5A] animate-bounce" />
-                <span className="inline-block w-2 h-2 rounded-full bg-[#145C5A] animate-bounce [animation-delay:0.2s]" />
-                <span className="inline-block w-2 h-2 rounded-full bg-[#145C5A] animate-bounce [animation-delay:0.4s]" />
-                <span className="text-[11px] ml-1">Sunmoon concierge is typing...</span>
+              <div className="flex gap-3 justify-start">
+                <div className="w-8 h-8 rounded-full bg-[#145C5A] text-[#C9A45C] flex items-center justify-center shrink-0">
+                  <Sparkles className="w-4 h-4 animate-spin" />
+                </div>
+                <div className="bg-white border border-[#E9DDCB] p-3 rounded-2xl rounded-tl-xs text-xs text-[#75665D] flex items-center gap-1.5 shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-[#C9A45C] animate-bounce" />
+                  <span className="w-2 h-2 rounded-full bg-[#C9A45C] animate-bounce [animation-delay:0.2s]" />
+                  <span className="w-2 h-2 rounded-full bg-[#C9A45C] animate-bounce [animation-delay:0.4s]" />
+                  <span className="text-[11px] ml-1">Intemporel concierge is typing...</span>
+                </div>
               </div>
             )}
+
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Input Bar */}
-          <div className="p-3 sm:p-4 bg-white border-t border-[#E9DDCB]">
+          {/* Input Area */}
+          <div className="p-3 sm:p-4 bg-white border-t border-[#E9DDCB] shrink-0">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -388,16 +285,18 @@ export const AIChatbotModal: React.FC<AIChatbotModalProps> = ({
               className="flex items-center gap-2"
             >
               <input
+                id="ai-chat-input"
                 type="text"
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
-                placeholder="Ask about 18K/21K gold, pearls, bridal sets..."
-                className="flex-1 px-4 py-2.5 rounded-full bg-[#FBF8F1] border border-[#E9DDCB] text-xs sm:text-sm text-[#463A34] placeholder-[#75665D]/60 focus:outline-none focus:border-[#145C5A]"
+                placeholder="Ask about watches, Geneva salon viewing, prices..."
+                className="flex-1 px-4 py-2.5 rounded-full border border-[#C9A45C]/40 text-xs text-[#463A34] placeholder-[#75665D]/60 focus:outline-none focus:border-[#145C5A] bg-[#FBF8F1]"
               />
               <button
+                id="ai-chat-send-btn"
                 type="submit"
                 disabled={!inputText.trim()}
-                className="w-10 h-10 rounded-full bg-[#145C5A] disabled:opacity-50 hover:bg-[#0D3E3D] text-white flex items-center justify-center transition-colors shadow-xs shrink-0"
+                className="w-10 h-10 rounded-full bg-[#145C5A] hover:bg-[#0D3E3D] text-white flex items-center justify-center transition-colors disabled:opacity-40 disabled:hover:bg-[#145C5A] shrink-0 cursor-pointer shadow-sm"
               >
                 <Send className="w-4 h-4 text-[#C9A45C]" />
               </button>

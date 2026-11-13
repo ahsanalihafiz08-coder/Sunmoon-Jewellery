@@ -26,8 +26,8 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   const images = item.galleryImages && item.galleryImages.length > 0 ? item.galleryImages : [item.image];
   const activeImage = images[activeImageIndex] || item.image;
 
-  const whatsappInquiryUrl = `https://wa.me/96597482257?text=${encodeURIComponent(
-    `Hello Sunmoon Jewelleryj, I would like to inquire about the "${item.name}" (${item.collection} collection - ${item.metal} - ${item.price || 'KWD On Request'}).`
+  const whatsappInquiryUrl = `https://wa.me/41799660156?text=${encodeURIComponent(
+    `Hello Intemporel Genève, I would like to inquire about the "${item.name}" (${item.collection} - ${item.metal} - ${item.price || 'USD On Request'}).`
   )}`;
 
   return (
@@ -70,6 +70,9 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                     src={activeImage}
                     alt={item.name}
                     className="w-full h-full object-cover object-center"
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="sync"
                   />
                   {item.isNewArrival && (
                     <span className="absolute top-3 left-3 px-3 py-1 rounded-full bg-[#145C5A] text-white text-[10px] font-bold uppercase tracking-wider shadow-xs">
@@ -104,7 +107,14 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                             : 'border-transparent opacity-60 hover:opacity-100'
                         }`}
                       >
-                        <img src={img} alt={`${item.name} thumb ${i}`} className="w-full h-full object-cover" />
+                        <img
+                          src={img}
+                          alt={`${item.name} thumb ${i}`}
+                          className="w-full h-full object-cover"
+                          loading="eager"
+                          fetchPriority="high"
+                          decoding="sync"
+                        />
                       </button>
                     ))}
                   </div>
@@ -116,7 +126,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <ShieldCheck className="w-5 h-5 text-[#C9A45C] shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold text-[#463A34]">Boutique Authenticity Assured</p>
-                  <p>Available for private inspection at Souq Al Watiya, Ground Floor, Shop 116.</p>
+                  <p>Available for private inspection at Route des Jeunes 4bis, Les Acacias, Genève.</p>
                 </div>
               </div>
             </div>
@@ -207,7 +217,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 </button>
 
                 <p className="text-[11px] text-center text-[#75665D]">
-                  Visit us at Ground floor, 116, Souq Al Watiya, Maliya, Kuwait City
+                  Visit our salon at Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse
                 </p>
               </div>
             </div>

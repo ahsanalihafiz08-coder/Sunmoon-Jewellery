@@ -14,6 +14,7 @@ export interface JewelleryItem {
   tags: string[];
   isFeatured: boolean;
   isNewArrival?: boolean;
+  brand?: string;
 }
 
 export interface CollectionCategory {
@@ -24,6 +25,12 @@ export interface CollectionCategory {
   image: string;
   itemCount: number;
   highlightText: string;
+  movement?: string;
+  calibre?: string;
+  caseMaterial?: string;
+  powerReserve?: string;
+  waterResistance?: string;
+  salonLocation?: string;
 }
 
 export interface ReviewItem {

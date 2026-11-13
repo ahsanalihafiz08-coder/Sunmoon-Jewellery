@@ -25,11 +25,11 @@ export const JewelleryProcess: React.FC = () => {
           </div>
 
           <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
-            How You Experience Sunmoon
+            The Intemporel Experience
           </h2>
 
           <p className="text-base sm:text-lg text-[#75665D] font-body max-w-2xl mx-auto leading-relaxed">
-            From initial inspiration to taking home an enduring keepsake, we make every step seamless and memorable.
+            From initial curating to acquiring a verified Swiss master timepiece, our process is discreet, seamless, and memorable.
           </p>
         </div>
 
@@ -81,7 +81,7 @@ export const JewelleryProcess: React.FC = () => {
         <div className="mt-12 p-6 rounded-2xl bg-[#E9DDCB]/40 border border-[#C9A45C]/30 max-w-2xl mx-auto text-center flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-center sm:text-left">
             <p className="font-serif-cormorant text-xl font-bold text-[#463A34]">Ready to begin your journey?</p>
-            <p className="text-xs text-[#75665D]">Visit us in Souq Al Watiya or message our concierge on WhatsApp.</p>
+            <p className="text-xs text-[#75665D]">Visit our Geneva salon on Route des Jeunes 4bis or message our concierge on WhatsApp.</p>
           </div>
           <a
             id="process-whatsapp-link"

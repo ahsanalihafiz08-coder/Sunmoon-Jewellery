@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { GALLERY_ITEMS } from '../data/jewelleryData';
-import { GalleryImage } from '../types';
 import { JewelleryImage } from './JewelleryImage';
 
 export const GallerySection: React.FC = () => {
@@ -41,23 +40,23 @@ export const GallerySection: React.FC = () => {
           </div>
 
           <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
-            Curated Gallery
+            Culture Gallery
           </h2>
 
           <p className="text-sm sm:text-base text-[#75665D] font-body max-w-2xl mx-auto leading-relaxed">
-            A visual showcase of fine gold artistry, luminous pearls, and timeless bridal suites from Sunmoon Jewelleryj at Souq Al Watiya.
+            A visual chronicle of iconic Swiss horological masterpieces, precision chronographs, and rare references curated by Intemporel Genève.
           </p>
         </div>
 
-        {/* 10-Card Responsive Grid on Desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {/* Strict 3-Cards-Per-Row Horizontal Grid on Desktop (Exactly 9 Cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 sm:gap-8">
           {GALLERY_ITEMS.map((item, idx) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, scale: 0.96 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: '-30px' }}
-              transition={{ duration: 0.35, delay: (idx % 6) * 0.05 }}
+              transition={{ duration: 0.35, delay: (idx % 3) * 0.05 }}
               onClick={() => setLightboxIndex(idx)}
               className="group cursor-pointer relative rounded-2xl overflow-hidden bg-[#F4EFE6] border border-[#E9DDCB] hover:border-[#C9A45C] shadow-xs hover:shadow-xl transition-all duration-300 aspect-[4/3] flex flex-col justify-between"
             >
@@ -100,24 +99,24 @@ export const GallerySection: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setLightboxIndex(null)}
-              className="fixed inset-0 bg-[#463A34]/85 backdrop-blur-md"
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
             />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/50 z-10 flex flex-col max-h-[90vh]"
+              className="relative max-w-4xl w-full max-h-[90vh] bg-black/40 rounded-3xl overflow-hidden border border-white/20 shadow-2xl z-10 flex flex-col justify-between"
             >
               {/* Close Button */}
               <button
                 onClick={() => setLightboxIndex(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#C9A45C] hover:text-[#463A34] transition-colors border border-white/20 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Navigation Arrows */}
+              {/* Previous / Next Navigation Arrows */}
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -125,7 +124,7 @@ export const GallerySection: React.FC = () => {
                     prev !== null ? (prev - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length : 0
                   );
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#C9A45C] hover:text-[#463A34] transition-colors border border-white/20 cursor-pointer"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
@@ -137,46 +136,48 @@ export const GallerySection: React.FC = () => {
                     prev !== null ? (prev + 1) % GALLERY_ITEMS.length : 0
                   );
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center hover:bg-[#C9A45C] hover:text-[#463A34] transition-colors border border-white/20 cursor-pointer"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Main Image Container */}
-              <div className="relative aspect-[16/10] bg-[#F4EFE6] overflow-hidden flex items-center justify-center">
-                <JewelleryImage
+              {/* Lightbox Image Container */}
+              <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full max-h-[68vh] overflow-hidden bg-black flex items-center justify-center">
+                <img
                   src={activeImage.image}
                   alt={activeImage.title}
-                  className="w-full h-full object-contain bg-[#463A34]/5"
+                  className="w-full h-full object-contain"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
                 />
               </div>
 
-              {/* Captions */}
-              <div className="p-6 bg-white border-t border-[#E9DDCB] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#C9A45C]">
+              {/* Caption Bar */}
+              <div className="p-4 sm:p-6 bg-black/80 backdrop-blur-md border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-white">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[11px] font-bold text-[#E4CCA1] uppercase tracking-wider">
                       {activeImage.category}
                     </span>
-                    <span className="text-xs text-[#75665D]">
+                    <span className="text-white/40">•</span>
+                    <span className="text-xs text-white/60">
                       ({lightboxIndex !== null ? lightboxIndex + 1 : 1} of {GALLERY_ITEMS.length})
                     </span>
                   </div>
-                  <h3 className="font-serif-cormorant text-2xl font-bold text-[#463A34]">
-                    {activeImage.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-[#75665D] font-body max-w-xl">
+                  <h3 className="font-serif-cormorant text-2xl font-bold">{activeImage.title}</h3>
+                  <p className="text-xs sm:text-sm text-white/80 font-body max-w-xl mt-1">
                     {activeImage.caption}
                   </p>
                 </div>
 
                 <a
-                  href={`https://wa.me/96597482257?text=${encodeURIComponent(
-                    `Hello Sunmoon Jewelleryj, I am inquiring about "${activeImage.title}" from your Curated Gallery.`
+                  href={`https://wa.me/41799660156?text=${encodeURIComponent(
+                    `Hello Intemporel Genève, I am inquiring about "${activeImage.title}" from your Culture Gallery.`
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-6 py-2.5 rounded-full bg-[#145C5A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D3E3D] transition-colors shrink-0 shadow-xs"
+                  className="px-5 py-2.5 rounded-full bg-[#C9A45C] hover:bg-[#B8924B] text-[#463A34] text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors shadow-md cursor-pointer"
                 >
                   Inquire on WhatsApp
                 </a>

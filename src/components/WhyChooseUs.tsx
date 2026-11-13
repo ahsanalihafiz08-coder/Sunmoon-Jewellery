@@ -22,11 +22,11 @@ export const WhyChooseUs: React.FC = () => {
           </div>
 
           <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
-            Why Choose Sunmoon Jewelleryj
+            Why Choose Intemporel Genève
           </h2>
 
           <p className="text-base sm:text-lg text-[#75665D] font-body max-w-2xl mx-auto leading-relaxed">
-            Our commitment to timeless design, authentic hospitality, and thoughtful presentation sets our Kuwait City boutique apart.
+            Our dedication to Swiss watchmaking heritage, certified movement provenance, and confidential salon consultations distinguishes our Geneva house.
           </p>
         </div>
 

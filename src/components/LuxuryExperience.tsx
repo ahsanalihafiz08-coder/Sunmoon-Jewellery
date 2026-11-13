@@ -44,7 +44,7 @@ export const LuxuryExperience: React.FC<LuxuryExperienceProps> = ({
             </p>
 
             <p className="text-sm sm:text-base text-[#75665D] font-body leading-relaxed max-w-2xl mx-auto">
-              At Sunmoon Jewelleryj, we present a refined atmosphere where every client receives attentive, genuine guidance. From selecting an heirloom bridal suite to discovering effortless everyday gold pieces, our boutique in Souq Al Watiya is devoted to your personal expression.
+              At Intemporel Genève, we present a refined atmosphere where every client receives attentive, confidential guidance. From selecting an investment-grade complication to discovering an iconic daily watch, our salon on Route des Jeunes is devoted to your horological journey.
             </p>
           </div>
 
@@ -53,17 +53,17 @@ export const LuxuryExperience: React.FC<LuxuryExperienceProps> = ({
             <div className="p-5 rounded-2xl bg-white border border-[#E9DDCB] shadow-xs space-y-1.5">
               <div className="flex items-center gap-2 text-[#145C5A]">
                 <Heart className="w-4 h-4 text-[#C9A45C]" />
-                <span className="text-xs font-bold uppercase tracking-wider">Meaningful Expression</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Enduring Heritage</span>
               </div>
-              <p className="text-xs text-[#75665D] leading-relaxed">Pieces designed to accompany you through every celebration and lifelong milestone.</p>
+              <p className="text-xs text-[#75665D] leading-relaxed">Mechanical creations destined to become family heirlooms across generations.</p>
             </div>
 
             <div className="p-5 rounded-2xl bg-white border border-[#E9DDCB] shadow-xs space-y-1.5">
               <div className="flex items-center gap-2 text-[#145C5A]">
                 <Shield className="w-4 h-4 text-[#C9A45C]" />
-                <span className="text-xs font-bold uppercase tracking-wider">Personal Guidance</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Geneva Salon Hospitality</span>
               </div>
-              <p className="text-xs text-[#75665D] leading-relaxed">Dedicated Kuwaiti hospitality tailored around your unique aesthetic preferences.</p>
+              <p className="text-xs text-[#75665D] leading-relaxed">Dedicated horological guidance tailored around your collector preferences and lifestyle.</p>
             </div>
           </div>
 

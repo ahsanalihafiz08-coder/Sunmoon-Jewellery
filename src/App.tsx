@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { TrustStats } from './components/TrustStats';
+import { BrandFilterBar } from './components/BrandFilterBar';
 import { CollectionsSection } from './components/CollectionsSection';
 import { FeaturedJewellery } from './components/FeaturedJewellery';
 import { DualRowMarquee } from './components/DualRowMarquee';
@@ -32,11 +33,12 @@ export default function App() {
   const [isAIChatOpen, setIsAIChatOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>('all');
+  const [selectedBrandFilter, setSelectedBrandFilter] = useState<string>('all');
 
   // Wishlist state persisted in localStorage
   const [savedItemIds, setSavedItemIds] = useState<Set<string>>(() => {
     try {
-      const stored = localStorage.getItem('sunmoon_saved_items');
+      const stored = localStorage.getItem('intemporel_saved_items') || localStorage.getItem('sunmoon_saved_items');
       return stored ? new Set(JSON.parse(stored)) : new Set<string>();
     } catch {
       return new Set<string>();
@@ -53,7 +55,7 @@ export default function App() {
         next.add(id);
       }
       try {
-        localStorage.setItem('sunmoon_saved_items', JSON.stringify(Array.from(next)));
+        localStorage.setItem('intemporel_saved_items', JSON.stringify(Array.from(next)));
       } catch {}
       return next;
     });
@@ -62,6 +64,7 @@ export default function App() {
   const handleClearWishlist = useCallback(() => {
     setSavedItemIds(new Set());
     try {
+      localStorage.removeItem('intemporel_saved_items');
       localStorage.removeItem('sunmoon_saved_items');
     } catch {}
   }, []);
@@ -81,7 +84,7 @@ export default function App() {
   const handleCopyAddress = useCallback(() => {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(STORE_INFO.address);
-      showToast('Address copied: Ground Floor, 116, Souq Al Watiya, Maliya, Kuwait City', 'info');
+      showToast('Address copied: Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse', 'info');
     } else {
       showToast(STORE_INFO.address, 'info');
     }
@@ -89,10 +92,16 @@ export default function App() {
 
   const handleSelectCategoryFromCollections = (catKey: string) => {
     setSelectedCategoryFilter(catKey);
+    setSelectedBrandFilter('all');
     const element = document.getElementById('catalog') || document.getElementById('jewellery');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleSelectBrandFromFilter = (brand: string) => {
+    setSelectedBrandFilter(brand);
+    setSelectedCategoryFilter('all');
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -130,12 +139,20 @@ export default function App() {
         {/* 2. Featured Categories (9 Cards, 3 Columns) */}
         <CollectionsSection onSelectCategory={handleSelectCategoryFromCollections} />
 
+        {/* New Single-Line Swiss Watchmaker Brand Filter Bar right above Catalog */}
+        <BrandFilterBar
+          selectedBrand={selectedBrandFilter}
+          onSelectBrand={handleSelectBrandFromFilter}
+        />
+
         {/* 3. Main Product Catalog Section (36 Cards, 3 Columns, Details Bottom Left, Book Viewing / Save / Price Bottom Right) */}
         <FeaturedJewellery
           onSelectItem={(item) => setSelectedProduct(item)}
           onBookViewing={(itemName) => handleOpenAppointment(itemName)}
           selectedCategoryFilter={selectedCategoryFilter}
           onFilterChange={(cat) => setSelectedCategoryFilter(cat)}
+          selectedBrandFilter={selectedBrandFilter}
+          onBrandFilterChange={(brand) => setSelectedBrandFilter(brand)}
           savedItemIds={savedItemIds}
           onToggleSaveItem={handleToggleSaveItem}
         />
@@ -149,13 +166,13 @@ export default function App() {
           onOpenAppointment={() => handleOpenAppointment()}
         />
 
-        {/* Why Choose Sunmoon Jewelleryj */}
+        {/* Why Choose Intemporel Genève */}
         <WhyChooseUs />
 
-        {/* 4-Step Jewellery Experience / Process */}
+        {/* 4-Step Experience / Process */}
         <JewelleryProcess />
 
-        {/* 5. Store Location in Souq Al Watiya */}
+        {/* 5. Geneva Salon Location */}
         <StoreLocation onCopyAddress={handleCopyAddress} />
 
         {/* 6. Curated Gallery Section (10 Cards, Responsive Grid, Lightbox) */}

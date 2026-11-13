@@ -23,15 +23,15 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C9A45C]/40 text-xs font-semibold uppercase tracking-widest text-[#145C5A]">
             <MapPin className="w-3.5 h-3.5 text-[#C9A45C]" />
-            <span>Kuwait City Flagship Boutique</span>
+            <span>Geneva Flagship Salon</span>
           </div>
 
           <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
-            Visit Sunmoon Jewelleryj
+            Visit Intemporel Genève
           </h2>
 
           <p className="text-sm sm:text-base text-[#75665D] font-body max-w-2xl mx-auto leading-relaxed">
-            We welcome you to our boutique showroom in Souq Al Watiya to explore our fine gold and jewellery collections in person.
+            We welcome you to our private salon in Les Acacias to experience our rare Swiss timepieces and haute horlogerie suites in person.
           </p>
         </div>
 
@@ -50,10 +50,10 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
               <div className="flex items-start justify-between">
                 <div className="space-y-1">
                   <span className="text-[11px] font-bold uppercase tracking-widest text-[#C9A45C]">
-                    Exact Boutique Location
+                    Exact Salon Location
                   </span>
                   <h3 className="font-serif-cormorant text-2xl sm:text-3xl font-bold text-[#463A34]">
-                    Souq Al Watiya
+                    Les Acacias, Genève
                   </h3>
                 </div>
 
@@ -66,13 +66,13 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
               <div className="p-4 rounded-2xl bg-[#FBF8F1] border border-[#E9DDCB] space-y-2">
                 <p className="text-xs text-[#75665D] font-medium uppercase tracking-wider">Address</p>
                 <p className="text-sm sm:text-base font-semibold text-[#463A34] leading-relaxed">
-                  Ground Floor, 116, Souq Al Watiya, Maliya, Kuwait City, Kuwait.
+                  Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse.
                 </p>
 
                 <button
                   id="copy-address-btn"
                   onClick={handleCopy}
-                  className="pt-1.5 text-xs font-semibold text-[#145C5A] hover:text-[#C9A45C] flex items-center gap-1.5 transition-colors focus:outline-none"
+                  className="pt-1.5 text-xs font-semibold text-[#145C5A] hover:text-[#C9A45C] flex items-center gap-1.5 transition-colors focus:outline-none cursor-pointer"
                 >
                   {copied ? (
                     <>
@@ -101,9 +101,9 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
                   <a
                     id="call-us-store-btn"
                     href={`tel:${STORE_INFO.phone}`}
-                    className="w-32 h-9 px-3 rounded-lg bg-[#145C5A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D3E3D] transition-colors whitespace-nowrap shrink-0 flex items-center justify-center text-center shadow-xs"
+                    className="w-32 h-9 px-3 rounded-lg bg-[#145C5A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D3E3D] transition-colors whitespace-nowrap shrink-0 flex items-center justify-center text-center shadow-xs cursor-pointer"
                   >
-                    <span>CALL STORE</span>
+                    <span>CALL SALON</span>
                   </a>
                 </div>
 
@@ -120,7 +120,7 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
                     href={STORE_INFO.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-32 h-9 px-3 rounded-lg bg-[#145C5A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D3E3D] transition-colors whitespace-nowrap shrink-0 flex items-center justify-center text-center shadow-xs"
+                    className="w-32 h-9 px-3 rounded-lg bg-[#145C5A] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#0D3E3D] transition-colors whitespace-nowrap shrink-0 flex items-center justify-center text-center shadow-xs cursor-pointer"
                   >
                     <span>CHAT WITH US</span>
                   </a>
@@ -131,10 +131,10 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                 <a
                   id="get-directions-btn"
-                  href="https://maps.app.goo.gl/4gp54kWBNrQGoyDd7"
+                  href={STORE_INFO.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="h-11 sm:h-12 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-[#FBF8F1] text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow-xs transition-colors whitespace-nowrap"
+                  className="h-11 sm:h-12 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-[#FBF8F1] text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 shadow-xs transition-colors whitespace-nowrap cursor-pointer"
                 >
                   <Navigation className="w-4 h-4 text-[#C9A45C] shrink-0" />
                   <span>GET DIRECTIONS</span>
@@ -143,10 +143,10 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
                 <a
                   id="call-store-primary"
                   href={`tel:${STORE_INFO.phone}`}
-                  className="h-11 sm:h-12 px-4 rounded-xl bg-white hover:bg-[#E9DDCB]/30 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-colors whitespace-nowrap"
+                  className="h-11 sm:h-12 px-4 rounded-xl bg-white hover:bg-[#E9DDCB]/30 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-colors whitespace-nowrap cursor-pointer"
                 >
                   <Phone className="w-4 h-4 text-[#C9A45C] shrink-0" />
-                  <span>CALL STORE</span>
+                  <span>CALL SALON</span>
                 </a>
               </div>
             </div>
@@ -155,7 +155,7 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
             <div className="p-5 rounded-2xl bg-white border border-[#E9DDCB] space-y-3">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#145C5A]">
                 <Clock className="w-4 h-4 text-[#C9A45C]" />
-                <span>Boutique Opening Hours</span>
+                <span>Salon Opening Hours</span>
               </div>
               <div className="space-y-2 text-xs text-[#75665D]">
                 {STORE_INFO.openingHours.map((h, i) => (
@@ -181,8 +181,8 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
               {/* Compact Google Maps Iframe */}
               <div className="relative w-full h-64 sm:h-72 bg-[#E9DDCB]/30 overflow-hidden">
                 <iframe
-                  title="Sunmoon Jewelleryj Location in Souq Al Watiya Kuwait City"
-                  src="https://maps.google.com/maps?q=Souq+Al+Watiya+Maliya+Kuwait+City&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  title="Intemporel Genève Location in Les Acacias Genève"
+                  src="https://maps.google.com/maps?q=Route+des+Jeunes+4bis,+1227+Les+Acacias,+Gen%C3%A8ve,+Suisse&t=&z=16&ie=UTF8&iwloc=&output=embed"
                   className="w-full h-full border-0 filter contrast-105"
                   loading="lazy"
                 />
@@ -192,11 +192,11 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
                   <div className="flex items-center gap-2">
                     <div className="w-2.5 h-2.5 rounded-full bg-[#145C5A] animate-ping" />
                     <p className="font-serif-cormorant text-sm font-bold text-[#463A34]">
-                      Sunmoon Jewelleryj
+                      Intemporel Genève
                     </p>
                   </div>
                   <p className="text-[11px] text-[#75665D] mt-0.5">
-                    Ground Floor, 116, Souq Al Watiya, Maliya
+                    Route des Jeunes 4bis, Les Acacias
                   </p>
                 </div>
               </div>
@@ -205,15 +205,15 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
               <div className="p-4 sm:p-5 bg-white border-t border-[#E9DDCB] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-[#75665D]">
                   <ShieldCheck className="w-4 h-4 text-[#C9A45C] shrink-0" />
-                  <span>Ground Floor Shop 116 with convenient visitor parking</span>
+                  <span>Private client parking available at Route des Jeunes 4bis</span>
                 </div>
 
                 <a
                   id="open-google-maps-btn"
-                  href="https://maps.app.goo.gl/4gp54kWBNrQGoyDd7"
+                  href={STORE_INFO.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-colors"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-xs transition-colors cursor-pointer"
                 >
                   <span>Open in Google Maps</span>
                   <ExternalLink className="w-3.5 h-3.5 text-[#C9A45C]" />
@@ -224,16 +224,16 @@ export const StoreLocation: React.FC<StoreLocationProps> = ({ onCopyAddress }) =
             {/* Boutique Location Highlights */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="p-5 rounded-2xl bg-white border border-[#E9DDCB] space-y-1">
-                <h4 className="font-serif-cormorant text-lg font-bold text-[#463A34]">Ground Floor Location</h4>
+                <h4 className="font-serif-cormorant text-lg font-bold text-[#463A34]">Discreet Geneva Address</h4>
                 <p className="text-xs text-[#75665D] leading-relaxed">
-                  Located at Shop 116 on the ground floor of Souq Al Watiya, Maliya, Kuwait City.
+                  Located at Route des Jeunes 4bis in the prestigious watchmaking quarter of Les Acacias, Genève.
                 </p>
               </div>
 
               <div className="p-5 rounded-2xl bg-white border border-[#E9DDCB] space-y-1">
-                <h4 className="font-serif-cormorant text-lg font-bold text-[#463A34]">Private Boutique Viewings</h4>
+                <h4 className="font-serif-cormorant text-lg font-bold text-[#463A34]">Private Salon Viewings</h4>
                 <p className="text-xs text-[#75665D] leading-relaxed">
-                  Walk-in visitors welcomed anytime or reserve a consultation with our jewellery stylists.
+                  Reserve a confidential consultation with our horological specialists for personalized timepiece inspection.
                 </p>
               </div>
             </div>

@@ -30,7 +30,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3 relative z-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[#C9A45C]/40 text-xs font-semibold uppercase tracking-widest text-[#145C5A] shadow-xs">
           <Sparkles className="w-3.5 h-3.5 text-[#C9A45C]" />
-          <span>Infinite Haute Horlogerie & Gold Showcase</span>
+          <span>Infinite Haute Horlogerie Showcase (44 Curated Pieces)</span>
         </div>
 
         <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
@@ -38,7 +38,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
         </h2>
 
         <p className="text-sm sm:text-base text-[#75665D] font-body max-w-2xl mx-auto leading-relaxed">
-          Hover to pause and click any creation to view high-resolution craftsmanship details from our Souq Al Watiya showcase.
+          Hover to pause and click any timepiece to view high-resolution craftsmanship and mechanical movement details from our Geneva showcase.
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                     </span>
                   </div>
                   <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-[#145C5A]/90 text-white text-[10px] font-semibold">
-                    Row 1 • #{(index % 22) + 1}
+                    Row 1 • #{(index % MARQUEE_ROW_1_LINKS.length) + 1}
                   </span>
                 </div>
                 <div className="p-3.5 bg-white border-t border-[#F4EFE6] flex items-center justify-between">
@@ -103,15 +103,15 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                       <span>Inspect</span>
                     </span>
                   </div>
-                  <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-[#C9A45C] text-[#463A34] text-[10px] font-bold">
-                    Row 2 • #{(index % 22) + 1}
+                  <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full bg-[#145C5A]/90 text-white text-[10px] font-semibold">
+                    Row 2 • #{(index % MARQUEE_ROW_2_LINKS.length) + 1}
                   </span>
                 </div>
                 <div className="p-3.5 bg-white border-t border-[#F4EFE6] flex items-center justify-between">
                   <p className="font-serif-cormorant text-base font-bold text-[#463A34] truncate group-hover:text-[#145C5A] transition-colors">
                     {item.title}
                   </p>
-                  <span className="text-[10px] text-[#145C5A] font-semibold uppercase tracking-wider">
+                  <span className="text-[10px] text-[#C9A45C] font-semibold uppercase tracking-wider">
                     View
                   </span>
                 </div>
@@ -121,18 +121,20 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
         </div>
       </div>
 
-      {/* Interactive Card Popup Modal */}
+      {/* Interactive Detail Popup Modal */}
       <AnimatePresence>
         {selectedPopupCard && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedPopupCard(null)}
-              className="fixed inset-0 bg-[#463A34]/80 backdrop-blur-md"
+              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
             />
 
+            {/* Modal Body */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -142,7 +144,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
               {/* Close Button */}
               <button
                 onClick={() => setSelectedPopupCard(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -154,10 +156,10 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                   alt={selectedPopupCard.title}
                   className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black/50 to-transparent" />
+                <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-3 left-4 text-white">
                   <span className="text-[11px] font-semibold uppercase tracking-widest text-[#E4CCA1]">
-                    Sunmoon Jewelleryj Exclusive
+                    Intemporel Genève Selection
                   </span>
                   <h3 className="font-serif-cormorant text-2xl font-bold">
                     {selectedPopupCard.title}
@@ -170,14 +172,14 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#145C5A]">
-                      18K & 21K Gold Selection
+                      Certified Swiss Calibre
                     </span>
                     <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#75665D]">
-                      Souq Al Watiya, Shop 116
+                      Les Acacias, Genève
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-[#75665D] font-body leading-relaxed">
-                    This creation represents our dedication to fine finish, balanced weight, and radiant brilliance. Available for viewing and bespoke fitting at our Kuwait City boutique.
+                    This creation exemplifies Swiss horological excellence, precision timing, and timeless aesthetics. Available for inspection and wrist fitting at our salon on Route des Jeunes 4bis, Genève.
                   </p>
                 </div>
 
@@ -189,19 +191,19 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                       }
                       setSelectedPopupCard(null);
                     }}
-                    className="w-full py-3 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors"
+                    className="w-full py-3 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
                   >
                     <Calendar className="w-4 h-4 text-[#C9A45C]" />
                     <span>Book Viewing</span>
                   </button>
 
                   <a
-                    href={`https://wa.me/96597482257?text=${encodeURIComponent(
-                      `Hello Sunmoon Jewelleryj, I would like to inquire about "${selectedPopupCard.title}" from your Marquee Showcase.`
+                    href={`https://wa.me/41799660156?text=${encodeURIComponent(
+                      `Hello Intemporel Genève, I would like to inquire about "${selectedPopupCard.title}" from your Showcase.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3 px-4 rounded-xl bg-[#FBF8F1] hover:bg-[#E9DDCB]/50 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
+                    className="w-full py-3 px-4 rounded-xl bg-[#FBF8F1] hover:bg-[#E9DDCB]/50 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
                   >
                     <MessageCircle className="w-4 h-4 text-[#145C5A]" />
                     <span>Inquire on WhatsApp</span>

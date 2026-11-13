@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Calendar, Clock, Sparkles, CheckCircle2, MessageCircle, MapPin } from 'lucide-react';
+import { X, Calendar, Clock, Sparkles, CheckCircle2, MessageCircle } from 'lucide-react';
 import { STORE_INFO } from '../data/jewelleryData';
 import { BoutiqueAppointment } from '../types';
 
@@ -22,21 +22,21 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
     phone: '',
     email: '',
     preferredDate: '',
-    preferredTime: 'Evening (5:00 PM – 8:00 PM)',
-    interestCategory: initialItemName ? `Inquiring about: ${initialItemName}` : 'Gold & Pearl Collections',
+    preferredTime: 'Morning (10:00 AM – 1:00 PM)',
+    interestCategory: initialItemName ? `Inquiring about ${initialItemName}` : 'Haute Horlogerie Timepiece Viewing',
     notes: '',
   });
 
-  const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<keyof BoutiqueAppointment, string>>>({});
+  const [submitted, setSubmitted] = useState(false);
 
   if (!isOpen) return null;
 
   const validate = () => {
     const newErrors: Partial<Record<keyof BoutiqueAppointment, string>> = {};
-    if (!formData.fullName.trim()) newErrors.fullName = 'Please enter your name';
-    if (!formData.phone.trim()) newErrors.phone = 'Please enter your phone number';
-    if (!formData.preferredDate) newErrors.preferredDate = 'Please select a preferred date';
+    if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone Number is required';
+    if (!formData.preferredDate) newErrors.preferredDate = 'Please select a date';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -51,8 +51,8 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
   };
 
   const generateWhatsAppAppointmentUrl = () => {
-    const text = `Hello Sunmoon Jewelleryj, I would like to book a private boutique viewing at Souq Al Watiya.\n\nName: ${formData.fullName}\nPhone: ${formData.phone}\nPreferred Date: ${formData.preferredDate}\nPreferred Time: ${formData.preferredTime}\nInterest: ${formData.interestCategory}`;
-    return `https://wa.me/96597482257?text=${encodeURIComponent(text)}`;
+    const text = `Hello Intemporel Genève, I would like to book a private salon viewing in Les Acacias, Genève.\n\nName: ${formData.fullName}\nPhone: ${formData.phone}\nPreferred Date: ${formData.preferredDate}\nPreferred Time: ${formData.preferredTime}\nInterest: ${formData.interestCategory}`;
+    return `https://wa.me/41799660156?text=${encodeURIComponent(text)}`;
   };
 
   return (
@@ -75,7 +75,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white border border-[#E9DDCB] flex items-center justify-center text-[#463A34] hover:bg-[#145C5A] hover:text-white transition-colors"
+            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white border border-[#E9DDCB] flex items-center justify-center text-[#463A34] hover:bg-[#145C5A] hover:text-white transition-colors cursor-pointer"
             aria-label="Close Appointment Modal"
           >
             <X className="w-4 h-4" />
@@ -89,10 +89,10 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   <span>Private Consultation</span>
                 </div>
                 <h3 className="font-serif-cormorant text-2xl sm:text-3xl font-bold text-[#463A34]">
-                  Reserve a Boutique Viewing
+                  Reserve a Salon Viewing
                 </h3>
                 <p className="text-xs text-[#75665D]">
-                  Ground floor, 116, Souq Al Watiya, Maliya, Kuwait City
+                  Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse
                 </p>
               </div>
 
@@ -118,7 +118,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   type="tel"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  placeholder="+965 ..."
+                  placeholder="+41 79 ..."
                   className={`w-full px-4 py-2.5 rounded-xl border text-xs bg-white focus:outline-none ${
                     errors.phone ? 'border-[#D99A8B]' : 'border-[#E9DDCB] focus:border-[#145C5A]'
                   }`}
@@ -149,8 +149,8 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     className="w-full px-3 py-2 rounded-xl border border-[#E9DDCB] text-xs bg-white focus:outline-none focus:border-[#145C5A]"
                   >
                     <option value="Morning (10:00 AM – 1:00 PM)">Morning (10 AM – 1 PM)</option>
-                    <option value="Evening (5:00 PM – 8:00 PM)">Evening (5 PM – 8 PM)</option>
-                    <option value="Late Evening (8:00 PM – 10:00 PM)">Late Evening (8 PM – 10 PM)</option>
+                    <option value="Afternoon (2:00 PM – 5:00 PM)">Afternoon (2 PM – 5 PM)</option>
+                    <option value="Late Afternoon (5:00 PM – 7:00 PM)">Late Afternoon (5 PM – 7 PM)</option>
                   </select>
                 </div>
               </div>
@@ -169,7 +169,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3.5 rounded-full bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-semibold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 mt-4"
+                className="w-full py-3.5 rounded-full bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-semibold uppercase tracking-wider shadow-md transition-all flex items-center justify-center gap-2 mt-4 cursor-pointer"
               >
                 <Calendar className="w-4 h-4 text-[#C9A45C]" />
                 <span>Confirm Viewing Slot</span>
@@ -186,7 +186,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
               </h3>
 
               <p className="text-xs text-[#75665D] max-w-sm mx-auto leading-relaxed">
-                Thank you, <strong>{formData.fullName}</strong>. We look forward to welcoming you at Souq Al Watiya on <strong>{formData.preferredDate}</strong> ({formData.preferredTime}).
+                Thank you, <strong>{formData.fullName}</strong>. We look forward to welcoming you at our Geneva salon on Route des Jeunes 4bis on <strong>{formData.preferredDate}</strong> ({formData.preferredTime}).
               </p>
 
               <div className="pt-2 flex flex-col gap-2">
@@ -194,7 +194,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   href={generateWhatsAppAppointmentUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#145C5A] text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm"
+                  className="w-full py-3 px-4 rounded-xl bg-[#145C5A] text-white text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 text-[#C9A45C]" />
                   <span>Send Confirmation to WhatsApp</span>
@@ -202,7 +202,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
 
                 <button
                   onClick={onClose}
-                  className="w-full py-2.5 px-4 rounded-xl border border-[#E9DDCB] text-xs font-semibold text-[#463A34] hover:bg-white"
+                  className="w-full py-2.5 px-4 rounded-xl border border-[#E9DDCB] text-xs font-semibold text-[#463A34] hover:bg-white cursor-pointer"
                 >
                   Done
                 </button>

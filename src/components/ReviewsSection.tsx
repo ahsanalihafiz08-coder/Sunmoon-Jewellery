@@ -28,11 +28,11 @@ export const ReviewsSection: React.FC = () => {
             </div>
 
             <h2 className="font-serif-cormorant text-3xl sm:text-4xl md:text-5xl font-bold text-[#463A34] tracking-tight">
-              Trusted by Jewellery Lovers in Kuwait
+              Trusted by Watch Collectors in Geneva & Worldwide
             </h2>
 
             <p className="text-base sm:text-lg text-[#75665D] font-body max-w-xl leading-relaxed">
-              Read verified reviews from patrons who visit our Souq Al Watiya boutique for engagement gifts, milestone celebrations, and daily elegance.
+              Read verified reviews from patrons who visit our Geneva salon for rare acquisitions, milestone celebrations, and horological consultations.
             </p>
           </div>
 
@@ -42,29 +42,22 @@ export const ReviewsSection: React.FC = () => {
               <div>
                 <div className="flex items-baseline gap-2 justify-center sm:justify-start">
                   <span className="font-serif-cormorant text-5xl sm:text-6xl font-bold text-[#463A34]">
-                    4.4
+                    5.0
                   </span>
-                  <span className="text-xl text-[#75665D]">/ 5.0</span>
+                  <span className="text-xl text-[#75665D]">Stars</span>
                 </div>
 
                 <div className="flex items-center justify-center sm:justify-start gap-1 text-[#C9A45C] my-1.5">
-                  {[...Array(4)].map((_, i) => (
+                  {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
                       className="w-4 h-4 fill-[#C9A45C] text-[#C9A45C]"
                     />
                   ))}
-                  {/* Fractional 5th star */}
-                  <div className="relative w-4 h-4">
-                    <Star className="w-4 h-4 text-[#C9A45C]" />
-                    <div className="absolute inset-0 overflow-hidden w-[40%]">
-                      <Star className="w-4 h-4 fill-[#C9A45C] text-[#C9A45C]" />
-                    </div>
-                  </div>
                 </div>
 
                 <p className="text-xs font-semibold text-[#145C5A] uppercase tracking-wider">
-                  Based on 114 Google Reviews • Souq Al Watiya
+                  Verified 5.0 Stars Rating • Les Acacias, Genève
                 </p>
               </div>
 
@@ -75,7 +68,7 @@ export const ReviewsSection: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <MessageSquare className="w-4 h-4 text-[#C9A45C]" />
-                  <span>Souq Al Watiya Boutique</span>
+                  <span>Geneva Private Salon</span>
                 </div>
               </div>
             </div>

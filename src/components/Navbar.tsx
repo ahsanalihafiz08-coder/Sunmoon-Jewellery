@@ -102,14 +102,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   isScrolled ? 'text-[#463A34] group-hover:text-[#145C5A]' : 'text-white drop-shadow-sm'
                 }`}
               >
-                Sunmoon Jewelleryj
+                Intemporel Genève
               </span>
               <span
                 className={`text-[9px] sm:text-[10px] tracking-[0.2em] uppercase font-semibold text-left mt-0.5 transition-colors ${
                   isScrolled ? 'text-[#C9A45C]' : 'text-[#E5C158] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]'
                 }`}
               >
-                Kuwait City • Souq Al Watiya
+                Genève • Les Acacias
               </span>
             </a>
 
@@ -350,7 +350,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="pt-2 text-center text-xs text-[#75665D]">
-                <p>Ground floor, 116, Souq Al Watiya, Maliya, Kuwait City</p>
+                <p>Route des Jeunes 4bis, 1227 Les Acacias, Genève, Suisse</p>
                 <p className="mt-1 font-semibold text-[#145C5A]">{STORE_INFO.phone}</p>
               </div>
             </div>
