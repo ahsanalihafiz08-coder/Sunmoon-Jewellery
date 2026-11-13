@@ -1,7 +1,8 @@
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart, Trash2, ShoppingBag, MessageCircle, Calendar, ArrowRight, Sparkles } from 'lucide-react';
-import { CATALOG_PRODUCTS, STORE_INFO } from '../data/jewelleryData';
+import { X, Heart, Trash2, MessageCircle, Calendar, ArrowRight } from 'lucide-react';
+import { ALL_TIMEPIECES_FOR_LOOKUP } from '../data/jewelleryData';
 import { JewelleryItem } from '../types';
 import { JewelleryImage } from './JewelleryImage';
 
@@ -26,8 +27,8 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
   onSelectItem,
   onExploreCatalog,
 }) => {
-  // Find all saved items from catalogue
-  const savedItems = CATALOG_PRODUCTS.filter((item) => savedItemIds.has(item.id));
+  // Find all saved items across complete catalog and curated brand collections
+  const savedItems = ALL_TIMEPIECES_FOR_LOOKUP.filter((item) => savedItemIds.has(item.id));
 
   // Compute total estimated price in USD
   const totalPriceUSD = savedItems.reduce((acc, item) => {
@@ -63,7 +64,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
     onOpenAppointment(`Wishlist Collection (${savedItems.length} items): ${names}`);
   };
 
-  return (
+  const drawerContent = (
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
@@ -264,4 +265,6 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
       )}
     </AnimatePresence>
   );
+
+  return typeof document !== 'undefined' ? createPortal(drawerContent, document.body) : drawerContent;
 };

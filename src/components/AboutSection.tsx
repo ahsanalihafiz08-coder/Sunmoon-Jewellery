@@ -1,7 +1,5 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { Sparkles, Heart, Crown, ShieldCheck, MapPin } from 'lucide-react';
-import { STORE_INFO } from '../data/jewelleryData';
+import { Sparkles, Heart, Crown, MapPin } from 'lucide-react';
 
 export const AboutSection: React.FC = () => {
   return (
@@ -9,13 +7,7 @@ export const AboutSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Brand Story Copy */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-7 space-y-6 text-center lg:text-left"
-          >
+          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E9DDCB]/50 border border-[#C9A45C]/30 text-xs font-semibold uppercase tracking-widest text-[#145C5A]">
               <Sparkles className="w-3.5 h-3.5 text-[#C9A45C]" />
               <span>About Intemporel Genève</span>
@@ -60,18 +52,12 @@ export const AboutSection: React.FC = () => {
                 <p className="text-xs text-[#75665D]">Route des Jeunes 4bis, Les Acacias, Suisse.</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* Right Column: Visual Collage */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-5"
-          >
+          <div className="lg:col-span-5">
             <div className="relative mx-auto max-w-md">
-              <div className="rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/40 bg-[#F4EFE6] aspect-[4/5] relative">
+              <div className="w-full rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/40 bg-[#F4EFE6] aspect-[4/5] relative">
                 <img
                   src="/images/QvCJhSYW-Mechanical-watch-showing-gear-mo-493c363f.jpg"
                   alt="Intemporel Genève - Mechanical watch showing gear movement"
@@ -93,7 +79,7 @@ export const AboutSection: React.FC = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

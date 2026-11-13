@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, MessageCircle, Calendar, ShieldCheck, Heart } from 'lucide-react';
 import { JewelleryItem } from '../types';
-import { STORE_INFO } from '../data/jewelleryData';
 
 interface ProductModalProps {
   item: JewelleryItem | null;
@@ -21,16 +21,20 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 }) => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [item?.id]);
+
   if (!item) return null;
 
   const images = item.galleryImages && item.galleryImages.length > 0 ? item.galleryImages : [item.image];
-  const activeImage = images[activeImageIndex] || item.image;
+  const activeImage = images[activeImageIndex] ?? images[0];
 
   const whatsappInquiryUrl = `https://wa.me/41799660156?text=${encodeURIComponent(
     `Hello Intemporel Genève, I would like to inquire about the "${item.name}" (${item.collection} - ${item.metal} - ${item.price || 'USD On Request'}).`
   )}`;
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
         {/* Backdrop */}
@@ -226,5 +230,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
       </div>
     </AnimatePresence>
   );
+
+  return typeof document !== 'undefined' ? createPortal(modalContent, document.body) : modalContent;
 };
 

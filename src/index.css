@@ -42,12 +42,8 @@
     scrollbar-width: none;
   }
 
-  /* CSS Hardware acceleration to eliminate desktop scroll lag */
-  main,
-  section,
-  .gpu-accelerated,
-  .animate-marquee-left,
-  .animate-marquee-right {
+  /* Selective GPU acceleration without breaking fixed modals or huge marquee layers */
+  .gpu-accelerated {
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     backface-visibility: hidden;
@@ -102,31 +98,33 @@ html, body, * {
 /* Dual-Row Marquee Animations */
 @keyframes marqueeLeft {
   0% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @keyframes marqueeRight {
   0% {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
   100% {
-    transform: translateX(0%);
+    transform: translate3d(0%, 0, 0);
   }
 }
 
 .animate-marquee-left {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marqueeLeft 45s linear infinite;
 }
 
 .animate-marquee-right {
   display: flex;
   width: max-content;
+  will-change: transform;
   animation: marqueeRight 45s linear infinite;
 }
 

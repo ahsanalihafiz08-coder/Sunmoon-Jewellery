@@ -1057,3 +1057,23 @@ export function getTimepiecesByBrand(brandName: string): JewelleryItem[] {
   return results;
 }
 
+export const ALL_TIMEPIECES_FOR_LOOKUP: JewelleryItem[] = (() => {
+  const byId = new Map<string, JewelleryItem>();
+
+  CATALOG_PRODUCTS.forEach((item) => byId.set(item.id, item));
+
+  Object.values(CURATED_BRAND_TIMEPIECES)
+    .flat()
+    .forEach((item) => byId.set(item.id, item));
+
+  SWISS_FILTER_BRANDS.forEach((brand) => {
+    getTimepiecesByBrand(brand).forEach((item) => {
+      if (!byId.has(item.id)) {
+        byId.set(item.id, item);
+      }
+    });
+  });
+
+  return Array.from(byId.values());
+})();
+

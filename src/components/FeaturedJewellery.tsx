@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import { motion } from 'motion/react';
 import { Sparkles, Heart, Search, ArrowRight, Calendar, Eye } from 'lucide-react';
 import { CATALOG_PRODUCTS, getTimepiecesByBrand } from '../data/jewelleryData';
 import { JewelleryItem } from '../types';
@@ -75,8 +74,7 @@ export const FeaturedJewellery: React.FC<FeaturedJewelleryProps> = ({
       return CATALOG_PRODUCTS;
     }
 
-    const matched = getTimepiecesByBrand(selectedBrandFilter);
-    return matched.length > 0 ? matched : CATALOG_PRODUCTS;
+    return getTimepiecesByBrand(selectedBrandFilter);
   }, [selectedBrandFilter]);
 
   const filteredItems = useMemo(() => {
@@ -200,18 +198,13 @@ export const FeaturedJewellery: React.FC<FeaturedJewelleryProps> = ({
               const isSaved = activeSavedIds.has(item.id);
 
               return (
-                <motion.div
+                <div
                   key={`${selectedBrandFilter}-${item.id}`}
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={selectedBrandFilter !== 'all' ? { opacity: 1, y: 0 } : undefined}
-                  whileInView={selectedBrandFilter === 'all' ? { opacity: 1, y: 0 } : undefined}
-                  viewport={{ once: true, margin: '-20px' }}
-                  transition={{ duration: 0.3, delay: (idx % 3) * 0.03 }}
                   className="group relative rounded-2xl bg-white border border-[#E9DDCB] hover:border-[#C9A45C] transition-all duration-300 shadow-xs hover:shadow-xl flex flex-col justify-between overflow-hidden"
                 >
                   {/* Image Container with compact 4:3 aspect ratio */}
                   <div
-                    className="relative aspect-[4/3] overflow-hidden bg-[#FBF8F1] cursor-pointer"
+                    className="relative w-full aspect-[4/3] overflow-hidden bg-[#FBF8F1] cursor-pointer"
                     onClick={() => onSelectItem(item)}
                   >
                     <JewelleryImage
@@ -313,7 +306,7 @@ export const FeaturedJewellery: React.FC<FeaturedJewelleryProps> = ({
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               );
             })}
           </div>

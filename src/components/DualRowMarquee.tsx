@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, X, Eye, MessageCircle, Calendar } from 'lucide-react';
 import { MARQUEE_ROW_1_LINKS, MARQUEE_ROW_2_LINKS, STORE_INFO } from '../data/jewelleryData';
@@ -16,6 +17,16 @@ interface DualRowMarqueeProps {
 
 export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing }) => {
   const [selectedPopupCard, setSelectedPopupCard] = useState<MarqueeCardItem | null>(null);
+
+  useEffect(() => {
+    if (selectedPopupCard) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalOverflow;
+      };
+    }
+  }, [selectedPopupCard]);
 
   // Duplicate rows for seamless infinite animation looping
   const row1Items = [...MARQUEE_ROW_1_LINKS, ...MARQUEE_ROW_1_LINKS];
@@ -53,7 +64,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                 onClick={() => setSelectedPopupCard(item)}
                 className="w-52 sm:w-64 shrink-0 rounded-2xl bg-white border border-[#E9DDCB] hover:border-[#C9A45C] shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col justify-between"
               >
-                <div className="relative aspect-square overflow-hidden bg-[#F4EFE6]">
+                <div className="relative w-full aspect-square overflow-hidden bg-[#F4EFE6]">
                   <JewelleryImage
                     src={item.image}
                     alt={item.title}
@@ -91,7 +102,7 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
                 onClick={() => setSelectedPopupCard(item)}
                 className="w-52 sm:w-64 shrink-0 rounded-2xl bg-white border border-[#E9DDCB] hover:border-[#C9A45C] shadow-xs hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer group flex flex-col justify-between"
               >
-                <div className="relative aspect-square overflow-hidden bg-[#F4EFE6]">
+                <div className="relative w-full aspect-square overflow-hidden bg-[#F4EFE6]">
                   <JewelleryImage
                     src={item.image}
                     alt={item.title}
@@ -121,99 +132,103 @@ export const DualRowMarquee: React.FC<DualRowMarqueeProps> = ({ onBookViewing })
         </div>
       </div>
 
-      {/* Interactive Detail Popup Modal */}
-      <AnimatePresence>
-        {selectedPopupCard && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedPopupCard(null)}
-              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
-            />
-
-            {/* Modal Body */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/50 z-10 flex flex-col"
-            >
-              {/* Close Button */}
-              <button
-                onClick={() => setSelectedPopupCard(null)}
-                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              {/* Popup Image */}
-              <div className="relative aspect-[4/3] bg-[#F4EFE6] overflow-hidden">
-                <JewelleryImage
-                  src={selectedPopupCard.image}
-                  alt={selectedPopupCard.title}
-                  className="w-full h-full object-cover object-center"
+      {/* Interactive Detail Popup Modal - Portaled to document.body */}
+      {typeof document !== 'undefined' &&
+        createPortal(
+          <AnimatePresence>
+            {selectedPopupCard && (
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
+                {/* Backdrop */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  onClick={() => setSelectedPopupCard(null)}
+                  className="fixed inset-0 bg-black/75 backdrop-blur-sm"
                 />
-                <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-4 text-white">
-                  <span className="text-[11px] font-semibold uppercase tracking-widest text-[#E4CCA1]">
-                    Intemporel Genève Selection
-                  </span>
-                  <h3 className="font-serif-cormorant text-2xl font-bold">
-                    {selectedPopupCard.title}
-                  </h3>
-                </div>
-              </div>
 
-              {/* Popup Content & Actions */}
-              <div className="p-6 space-y-5">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#145C5A]">
-                      Certified Swiss Calibre
-                    </span>
-                    <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#75665D]">
-                      Les Acacias, Genève
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-[#75665D] font-body leading-relaxed">
-                    This creation exemplifies Swiss horological excellence, precision timing, and timeless aesthetics. Available for inspection and wrist fitting at our salon on Route des Jeunes 4bis, Genève.
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                {/* Modal Body */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                  className="relative w-full max-w-xl bg-white rounded-3xl overflow-hidden shadow-2xl border border-[#C9A45C]/50 z-10 flex flex-col"
+                >
+                  {/* Close Button */}
                   <button
-                    onClick={() => {
-                      if (onBookViewing) {
-                        onBookViewing(selectedPopupCard.title);
-                      }
-                      setSelectedPopupCard(null);
-                    }}
-                    className="w-full py-3 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                    onClick={() => setSelectedPopupCard(null)}
+                    className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-white/90 backdrop-blur-md border border-[#E9DDCB] text-[#463A34] hover:bg-[#145C5A] hover:text-white flex items-center justify-center transition-colors shadow-md cursor-pointer"
                   >
-                    <Calendar className="w-4 h-4 text-[#C9A45C]" />
-                    <span>Book Viewing</span>
+                    <X className="w-5 h-5" />
                   </button>
 
-                  <a
-                    href={`https://wa.me/41799660156?text=${encodeURIComponent(
-                      `Hello Intemporel Genève, I would like to inquire about "${selectedPopupCard.title}" from your Showcase.`
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-3 px-4 rounded-xl bg-[#FBF8F1] hover:bg-[#E9DDCB]/50 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                  >
-                    <MessageCircle className="w-4 h-4 text-[#145C5A]" />
-                    <span>Inquire on WhatsApp</span>
-                  </a>
-                </div>
+                  {/* Popup Image */}
+                  <div className="relative w-full aspect-[4/3] bg-[#F4EFE6] overflow-hidden">
+                    <JewelleryImage
+                      src={selectedPopupCard.image}
+                      alt={selectedPopupCard.title}
+                      className="w-full h-full object-cover object-center"
+                    />
+                    <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className="absolute bottom-3 left-4 text-white">
+                      <span className="text-[11px] font-semibold uppercase tracking-widest text-[#E4CCA1]">
+                        Intemporel Genève Selection
+                      </span>
+                      <h3 className="font-serif-cormorant text-2xl font-bold">
+                        {selectedPopupCard.title}
+                      </h3>
+                    </div>
+                  </div>
+
+                  {/* Popup Content & Actions */}
+                  <div className="p-6 space-y-5">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#145C5A]">
+                          Certified Swiss Calibre
+                        </span>
+                        <span className="px-2.5 py-1 rounded-md bg-[#FBF8F1] border border-[#E9DDCB] text-xs font-semibold text-[#75665D]">
+                          Les Acacias, Genève
+                        </span>
+                      </div>
+                      <p className="text-xs sm:text-sm text-[#75665D] font-body leading-relaxed">
+                        This creation exemplifies Swiss horological excellence, precision timing, and timeless aesthetics. Available for inspection and wrist fitting at our salon on Route des Jeunes 4bis, Genève.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                      <button
+                        onClick={() => {
+                          if (onBookViewing) {
+                            onBookViewing(selectedPopupCard.title);
+                          }
+                          setSelectedPopupCard(null);
+                        }}
+                        className="w-full py-3 px-4 rounded-xl bg-[#145C5A] hover:bg-[#0D3E3D] text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                      >
+                        <Calendar className="w-4 h-4 text-[#C9A45C]" />
+                        <span>Book Viewing</span>
+                      </button>
+
+                      <a
+                        href={`https://wa.me/41799660156?text=${encodeURIComponent(
+                          `Hello Intemporel Genève, I would like to inquire about "${selectedPopupCard.title}" from your Showcase.`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full py-3 px-4 rounded-xl bg-[#FBF8F1] hover:bg-[#E9DDCB]/50 border border-[#C9A45C] text-[#463A34] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <MessageCircle className="w-4 h-4 text-[#145C5A]" />
+                        <span>Inquire on WhatsApp</span>
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
-            </motion.div>
-          </div>
+            )}
+          </AnimatePresence>,
+          document.body
         )}
-      </AnimatePresence>
     </section>
   );
 };

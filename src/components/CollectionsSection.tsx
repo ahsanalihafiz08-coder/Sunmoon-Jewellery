@@ -57,18 +57,14 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({ onSelect
 
         {/* 3-Column Grid Containing Exactly 9 Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-          {NINE_CATEGORIES_DATA.map((col, idx) => (
-            <motion.div
+          {NINE_CATEGORIES_DATA.map((col) => (
+            <div
               key={col.id}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.35, delay: idx * 0.04 }}
               onClick={(e) => handleOpenModal(col, e)}
               className="group cursor-pointer relative rounded-2xl bg-white border border-[#E9DDCB] hover:border-[#C9A45C] transition-all duration-300 overflow-hidden shadow-xs hover:shadow-xl flex flex-col justify-between"
             >
               {/* Image Container with compact 16:10 aspect ratio */}
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#F4EFE6]">
+              <div className="relative w-full aspect-[16/10] overflow-hidden bg-[#F4EFE6]">
                 <JewelleryImage
                   src={col.image}
                   alt={`Intemporel Genève - ${col.title}`}
@@ -126,7 +122,7 @@ export const CollectionsSection: React.FC<CollectionsSectionProps> = ({ onSelect
 
               {/* Gold Accent Bar */}
               <div className="h-[2px] w-full bg-transparent group-hover:bg-gradient-to-r group-hover:from-[#C9A45C] group-hover:to-[#E4CCA1] transition-all duration-300" />
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
